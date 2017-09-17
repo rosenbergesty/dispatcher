@@ -10,15 +10,12 @@ var mainView = myApp.addView('.view-main', {
 });
 
 $$(document).on('deviceready', function() {
-    console.log("Device is ready!");
-
     if(loggedIn()){
         // redirect
         mainView.router.loadPage('drivers.html');
     }
 
     $$('#login').click(function(e){
-        console.log('logging in');
         var email = $$('#email').val().toLowerCase();
         var password = $$('#password').val();
 
@@ -38,7 +35,6 @@ $$(document).on('deviceready', function() {
             console.log(xhr);
             console.log(status);
         });
-        console.log(email);
     });
 });
 
@@ -52,14 +48,12 @@ function loggedIn(){
 // Logout 
 myApp.onPageInit('*', function(page){
     $$('.logout').click(function(e){
-        console.log('log out');
         localStorage.removeItem('login');
         mainView.router.loadPage('index.html');
     });
     
 
     $$('#login').click(function(e){
-        console.log('logging in');
         var email = $$('#email').val().toLowerCase();
         var password = $$('#password').val();
 
@@ -79,7 +73,6 @@ myApp.onPageInit('*', function(page){
             console.log(xhr);
             console.log(status);
         });
-        console.log(email);
     });
 })
 
@@ -141,7 +134,6 @@ myApp.onPageInit('stops', function(page){
     var count = 0;
 
     $$.post('http://estyrosenberg.com/guma/fetch-stops-by-driverId.php', {driverID: driverId}, function(data){
-        console.log(data);
         if(JSON.parse(data) != '0 results'){
             $$('.empty-state').hide();
             var date = "";
@@ -149,7 +141,6 @@ myApp.onPageInit('stops', function(page){
             stops.clean();
 
             $$.each(JSON.parse(data), function(index, value){
-                console.log(value);
                 // add time string
                 if(value.dateCreated != date){
                     date = value.dateCreated;
@@ -203,20 +194,20 @@ myApp.onPageInit('stops', function(page){
         }
     });
 
-    $('.messagebar #size .button').click(function(){
-        $('.messagebar #size .button').removeClass('active');
-        $(this).addClass('active');
+    $$('.messagebar #size .button').click(function(){
+        $$('.messagebar #size .button').removeClass('active');
+        $$(this).addClass('active');
     });
-    $('.messagebar #action .button').click(function(){
-        $('.messagebar #action .button').removeClass('active');
-        $(this).addClass('active');
+    $$('.messagebar #action .button').click(function(){
+        $$('.messagebar #action .button').removeClass('active');
+        $$(this).addClass('active');
     });
 
-    $('#add').click(function(){        
+    $$('#add').click(function(){        
         // Get values of address, size and action
-        var address = $('#address').val();
-        var size = $('#size .button.active').text();
-        var action = $('#action .button.active').text();
+        var address = $$('#address').val();
+        var size = $$('#size .button.active').text();
+        var action = $$('#action .button.active').text();
 
         // Show alert if not valid
         var error = false;
@@ -239,7 +230,6 @@ myApp.onPageInit('stops', function(page){
                 date: date,
                 time: time
             }, function(data){
-                console.log(data);
                 if(JSON.parse(data)[0].code == '200'){
                     refresh();
                 } else {
@@ -253,7 +243,6 @@ myApp.onPageInit('stops', function(page){
         stops.clean();
 
         $$.post('http://estyrosenberg.com/guma/fetch-stops-by-driverId.php', {driverID: driverId}, function(data){
-            console.log(data);
             if(JSON.parse(data) != '0 results'){
                 $$('.empty-state').hide();
                 var date = "";
@@ -261,7 +250,6 @@ myApp.onPageInit('stops', function(page){
                 stops.clean();
 
                 $$.each(JSON.parse(data), function(index, value){
-                    console.log(value);
                     // add time string
                     if(value.dateCreated != date){
                         date = value.dateCreated;
