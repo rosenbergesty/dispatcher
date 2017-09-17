@@ -74,6 +74,7 @@ myApp.onPageInit('*', function(page){
             console.log(status);
         });
     });
+
 })
 
 // Drivers
